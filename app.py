@@ -20,7 +20,7 @@ supabase = init_connection()
 st.set_page_config(page_title="ЄДКІ Кібербезпека", page_icon="🛡️")
 
 
-@st.cache_data
+@st.cache_data(ttl=30)
 def load_questions():
     with open('questions.json', 'r', encoding='utf-8') as f:
         return json.load(f)
