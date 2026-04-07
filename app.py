@@ -91,7 +91,16 @@ if st.button("Перевірити відповідь"):
         else:
             st.error(f"❌ Помилка! Правильна відповідь: {q['options'][real_correct_index]}")
 
+       # --- НОВИЙ БЛОК ДЛЯ ПОСИЛАНЬ ---
         st.info(f"**Пояснення:** {q['explanation']}")
+        st.write("") 
+        if 'source' in q and q['source']:
+            st.markdown(f"🔗 **[Читати детальніше в офіційному джерелі]({q['source']})**")
+        elif 'topic' in q:
+            query = urllib.parse.quote(q['topic'] + " кібербезпека теорія")
+            search_url = f"https://www.google.com/search?q={query}"
+            st.markdown(f"🔍 **[Знайти матеріали по темі: {q['topic']}]({search_url})**")
+        # -------------------------------
 
 st.write("---")
 
