@@ -65,6 +65,29 @@ if 'current_q' not in st.session_state or st.session_state.get('logged_in_user')
 st.title(f"👋 Привіт, {student_id}!")
 st.write("---")
 
+# ==========================================
+# --- НОВЫЙ БЛОК: БЫСТРЫЙ ПЕРЕХОД ---
+# ==========================================
+st.sidebar.markdown("---")
+st.sidebar.subheader("🚀 Швидкий перехід")
+
+if 'current_q' in st.session_state:
+    current_id = questions[st.session_state.current_q]['id']
+    jump_id = st.sidebar.number_input("Введіть номер (ID) питання:", min_value=1, step=1, value=current_id)
+
+    if st.sidebar.button("Перейти"):
+        # Ищем индекс вопроса с введенным ID
+        target_index = next((i for i, quest in enumerate(questions) if quest['id'] == jump_id), None)
+        
+        if target_index is not None:
+            st.session_state.current_q = target_index
+            st.session_state.show_explanation = False 
+            st.rerun() 
+        else:
+            st.sidebar.error(f"❌ Питання №{jump_id} не знайдено!")
+# ==========================================
+
+# ВОТ ТВОЯ СТРОЧКА:
 q = questions[st.session_state.current_q]
 
 st.subheader(f"Питання {st.session_state.current_q + 1} з {len(questions)}")
